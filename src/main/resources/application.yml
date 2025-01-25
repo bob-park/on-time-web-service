@@ -1,0 +1,104 @@
+## server
+server:
+  port: 8080
+  tomcat:
+    mbeanregistry:
+      enabled: on
+
+## actuator
+management:
+  info:
+    java:
+      enabled: on
+    env:
+      enabled: on
+    os:
+      enabled: on
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+## spring
+spring:
+  application:
+    name: on-time-web-service
+  main:
+    banner-mode: log
+    allow-bean-definition-overriding: on
+  data:
+    redis:
+      repositories:
+        enabled: off
+  security:
+    oauth2:
+      client:
+        provider:
+          keyflow-auth:
+            issuer-uri: ${keyflow_auth_issuer_uri:http://localhost:9000}
+        registration:
+          keyflow-auth:
+            authorization-grant-type: authorization_code
+            client-name: KeyFlow ADAMS Web Service
+            client-id: ${keyflow_auth_client_id}
+            client-secret: ${keyflow_auth_client_secret}
+            redirect-uri: ${keyflow_auth_redirect_uri:http://127.0.0.1:8080/login/oauth2/code/keyflow-auth}
+            scope:
+              - openid
+              - profile
+  cloud:
+    openfeign:
+      client:
+        config:
+          default:
+            logger-level: basic
+  threads:
+    virtual:
+      enabled: on
+
+## eureka
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.hostname}:${spring.application.instance_id:${random.value}}
+  client:
+    enabled: ${discovery_enabled:off}
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: ${discovery_host:http://localhost:8761/eureka}
+
+
+## malgn
+malgn:
+  enabled: on
+  auth:
+    user:
+      enabled: on
+      host: ${auth-user-host:http://localhost:8080}
+  redis:
+    enabled: off
+
+## app
+app:
+  login-success-url: ${login_success_url:http://127.0.0.1:3000}
+
+## logging
+logging:
+  charset:
+    console: UTF-8
+    file: UTF-8
+  file:
+    name: ${logs_path}/${spring.application.name}.log
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} ${LOG_LEVEL_PATTERN:%-5p} ${PID} --- [%15.15t] %-40.40logger{39} :%06L : %m%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} ${LOG_LEVEL_PATTERN:%-5p} ${PID} --- [%15.15t] %-40.40logger{39} :%06L : %m%n"
+  logback:
+    rollingpolicy:
+      file-name-pattern: "${logs_path}/%d{yyyy-MM-dd}/${spring.application.name}.%d{yyyy-MM-dd}.%i.log"
+      max-file-size: 10MB
+      max-history: ${log_max_history:10}
+  level:
+    root: info
+    web: ${logs_web_level:info}
+    com.malgn: ${logs_malgn_level:info}
