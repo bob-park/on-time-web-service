@@ -3,7 +3,7 @@ package com.malgn.ontime.domain.team.model;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public record TeamResponse(String id,
+public record TeamResponse(Long id,
                            String name,
                            String description,
                            List<TeamUserResponse> teamUsers,
