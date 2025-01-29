@@ -1,0 +1,10 @@
+services:
+  on-time-web-service:
+    container_name: on-time-web-service
+    image: ghcr.io/bob-park/on-time-web-service
+    build:
+      dockerfile: ./Dockerfile
+      x-bake:
+        platforms:
+          - linux/amd64
+          - linux/arm64
