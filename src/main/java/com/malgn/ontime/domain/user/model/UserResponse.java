@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import lombok.Builder;
 
 import com.malgn.auth.model.RoleResponse;
+import com.malgn.ontime.domain.position.model.PositionResponse;
+import com.malgn.ontime.domain.team.model.TeamResponse;
 
 @Builder(toBuilder = true)
 public record UserResponse(String uniqueId,
@@ -14,6 +16,8 @@ public record UserResponse(String uniqueId,
                            String phone,
                            String cellPhone,
                            RoleResponse role,
+                           PositionResponse position,
+                           TeamResponse team,
                            LocalDateTime createdDate,
                            String createdBy,
                            LocalDateTime lastModifiedDate,
