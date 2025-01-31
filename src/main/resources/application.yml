@@ -82,6 +82,7 @@ malgn:
 ## app
 app:
   login-success-url: ${login_success_url:http://127.0.0.1:3000}
+  logout-success-url: ${logout_success_url:http://127.0.0.1:3000/api/oauth2/authorization/keyflow-auth}
 
 ## logging
 logging:

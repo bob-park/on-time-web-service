@@ -59,7 +59,7 @@ public class OAuth2ClientConfiguration {
         http.logout(logout ->
             logout
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl(properties.loginSuccessUrl())
+                .logoutSuccessUrl(properties.logoutSuccessUrl())
                 .invalidateHttpSession(true)
                 .clearAuthentication(true));
 
