@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.malgn.ontime.domain.attendance.model.AttendanceCheckResponse;
+import com.malgn.ontime.domain.attendance.model.AttendanceGpsResponse;
 import com.malgn.ontime.domain.attendance.model.AttendanceRecordResponse;
 import com.malgn.ontime.domain.attendance.model.CurrentAttendanceCheckRequest;
 import com.malgn.ontime.domain.attendance.model.GetAttendanceRecordRequest;
@@ -25,4 +26,7 @@ public interface AttendanceFeignClient {
 
     @GetMapping(path = "api/v1/attendance/records")
     List<AttendanceRecordResponse> getAllRecords(@SpringQueryMap GetAttendanceRecordRequest getRequest);
+
+    @GetMapping(path = "api/v1/attendance/gps")
+    List<AttendanceGpsResponse> getAllGps();
 }
