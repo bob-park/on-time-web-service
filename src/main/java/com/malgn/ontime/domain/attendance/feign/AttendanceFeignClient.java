@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.malgn.ontime.domain.attendance.model.AttendanceCheckResponse;
 import com.malgn.ontime.domain.attendance.model.AttendanceGpsResponse;
 import com.malgn.ontime.domain.attendance.model.AttendanceRecordResponse;
+import com.malgn.ontime.domain.attendance.model.CreateAttendanceScheduleRequest;
 import com.malgn.ontime.domain.attendance.model.CurrentAttendanceCheckRequest;
 import com.malgn.ontime.domain.attendance.model.GetAttendanceRecordRequest;
 import com.malgn.ontime.domain.attendance.model.RecordAttendanceRequest;
@@ -29,4 +30,7 @@ public interface AttendanceFeignClient {
 
     @GetMapping(path = "api/v1/attendance/gps")
     List<AttendanceGpsResponse> getAllGps();
+
+    @PostMapping(path = "api/v1/attendance/schedules")
+    AttendanceRecordResponse createSchedule(@RequestBody CreateAttendanceScheduleRequest createRequest);
 }
