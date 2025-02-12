@@ -1,5 +1,7 @@
 package com.malgn.ontime.domain.user.feign;
 
+import java.util.List;
+
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,4 +13,7 @@ public interface UserTeamFeignClient {
 
     @GetMapping(path = "api/v1/users/{uniqueId}/team")
     TeamResponse getTeam(@PathVariable("uniqueId") String uniqueId);
+
+    @GetMapping(path = "api/v1/teams")
+    List<TeamResponse> getTeams();
 }
