@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientProvider;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientProviderBuilder;
@@ -24,6 +25,7 @@ import com.malgn.ontime.configure.properties.AppProperties;
 @Slf4j
 @RequiredArgsConstructor
 @Configuration
+@EnableWebSecurity
 public class OAuth2ClientConfiguration {
 
     private final AppProperties properties;

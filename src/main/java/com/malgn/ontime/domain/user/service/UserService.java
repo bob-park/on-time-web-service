@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Service;
 
+import com.malgn.common.model.SimplePageImpl;
 import com.malgn.ontime.common.auth.AuthUtils;
 import com.malgn.ontime.domain.team.model.TeamResponse;
 import com.malgn.ontime.domain.user.feign.UserFeignClient;
@@ -36,5 +37,11 @@ public class UserService {
             .team(team)
             .build();
     }
+
+    public SimplePageImpl<UserResponse> getUsers(){
+        return userClient.getUsers();
+    }
+
+
 
 }
