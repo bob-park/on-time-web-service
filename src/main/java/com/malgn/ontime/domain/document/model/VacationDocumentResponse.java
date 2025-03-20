@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 import com.malgn.ontime.domain.user.model.UserCompLeaveEntryResponse;
 
@@ -15,6 +16,7 @@ import com.malgn.ontime.domain.user.model.UserCompLeaveEntryResponse;
 @Getter
 @Setter
 @NoArgsConstructor
+@SuperBuilder(toBuilder = true)
 public class VacationDocumentResponse extends DocumentResponse {
 
     private String vacationType;

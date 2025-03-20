@@ -1,0 +1,54 @@
+package com.malgn.ontime.domain.document.controller;
+
+import lombok.RequiredArgsConstructor;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.malgn.common.model.SimplePageImpl;
+import com.malgn.ontime.common.auth.AuthUtils;
+import com.malgn.ontime.domain.document.model.CreateVacationDocumentRequest;
+import com.malgn.ontime.domain.document.model.SearchVacationDocumentRequest;
+import com.malgn.ontime.domain.document.model.VacationDocumentResponse;
+import com.malgn.ontime.domain.document.service.VacationDocumentService;
+
+@RequiredArgsConstructor
+@RestController
+@RequestMapping("documents/vacations")
+public class VacationDocumentController {
+
+    private final VacationDocumentService documentService;
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping(path = "")
+    public VacationDocumentResponse createDocument(@RequestBody CreateVacationDocumentRequest createRequest) {
+        return documentService.createVacation(createRequest);
+    }
+
+    @GetMapping(path = "")
+    public SimplePageImpl<VacationDocumentResponse> search(@AuthenticationPrincipal OidcUser user,
+        SearchVacationDocumentRequest searchRequest) {
+
+        String uniqueId = AuthUtils.getUniqueId(user);
+
+        return documentService.search(
+            searchRequest.toBuilder()
+                .userUniqueId(uniqueId)
+                .build());
+    }
+
+    @GetMapping(path = "{id:\\d+}")
+    public VacationDocumentResponse getDocument(@AuthenticationPrincipal OidcUser user, @PathVariable Long id) {
+        String uniqueId = AuthUtils.getUniqueId(user);
+
+        return documentService.getDetail(id, uniqueId);
+    }
+}

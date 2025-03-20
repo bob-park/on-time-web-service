@@ -7,11 +7,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 @ToString
 @Getter
 @Setter
 @NoArgsConstructor
+@SuperBuilder(toBuilder = true)
 public class DocumentResponse {
 
     private Long id;
