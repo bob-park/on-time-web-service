@@ -9,6 +9,8 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
+import com.malgn.ontime.domain.user.model.UserResponse;
+
 @ToString
 @Getter
 @Setter
@@ -20,6 +22,7 @@ public class DocumentResponse {
     private String type;
     private String status;
     private String userUniqueId;
+    private UserResponse user;
     private List<DocumentApprovalHistoryResponse> approvalHistories;
     private LocalDateTime createdDate;
     private String createdBy;

@@ -29,8 +29,15 @@ public class VacationDocumentController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(path = "")
-    public VacationDocumentResponse createDocument(@RequestBody CreateVacationDocumentRequest createRequest) {
-        return documentService.createVacation(createRequest);
+    public VacationDocumentResponse createDocument(@AuthenticationPrincipal OidcUser user,
+        @RequestBody CreateVacationDocumentRequest createRequest) {
+
+        String uniqueId = AuthUtils.getUniqueId(user);
+
+        return documentService.createVacation(
+            createRequest.toBuilder()
+                .userUniqueId(uniqueId)
+                .build());
     }
 
     @GetMapping(path = "")

@@ -20,6 +20,7 @@ import com.malgn.ontime.domain.document.model.VacationDocumentResponse;
 import com.malgn.ontime.domain.team.model.TeamResponse;
 import com.malgn.ontime.domain.user.feign.UserFeignClient;
 import com.malgn.ontime.domain.user.feign.UserTeamFeignClient;
+import com.malgn.ontime.domain.user.model.UserResponse;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -42,6 +43,7 @@ public class VacationDocumentService {
     public VacationDocumentResponse getDetail(Long id, String userUniqueId) {
 
         VacationDocumentResponse document = documentClient.getById(id);
+        UserResponse user = userClient.getById(userUniqueId);
         TeamResponse team = userTeamClient.getTeam(userUniqueId);
 
         List<ApprovalLineResponse> approvalLine =
@@ -71,6 +73,7 @@ public class VacationDocumentService {
         }
 
         return document.toBuilder()
+            .user(user)
             .approvalHistories(newApprovalHistories)
             .build();
     }
