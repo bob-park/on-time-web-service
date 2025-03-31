@@ -19,7 +19,9 @@ import com.malgn.ontime.domain.document.model.SearchVacationDocumentRequest;
 import com.malgn.ontime.domain.document.model.VacationDocumentResponse;
 import com.malgn.ontime.domain.team.model.TeamResponse;
 import com.malgn.ontime.domain.user.feign.UserFeignClient;
+import com.malgn.ontime.domain.user.feign.UserPositionFeignClient;
 import com.malgn.ontime.domain.user.feign.UserTeamFeignClient;
+import com.malgn.ontime.domain.user.model.UserPositionResponse;
 import com.malgn.ontime.domain.user.model.UserResponse;
 
 @Slf4j
@@ -31,6 +33,7 @@ public class VacationDocumentService {
     private final DocumentFeignClient documentClient;
     private final UserFeignClient userClient;
     private final UserTeamFeignClient userTeamClient;
+    private final UserPositionFeignClient userPositionClient;
 
     public VacationDocumentResponse createVacation(CreateVacationDocumentRequest createRequest) {
         return documentClient.createVacationDocumentResponse(createRequest);
@@ -45,6 +48,7 @@ public class VacationDocumentService {
         VacationDocumentResponse document = documentClient.getById(id);
         UserResponse user = userClient.getById(userUniqueId);
         TeamResponse team = userTeamClient.getTeam(userUniqueId);
+        UserPositionResponse position = userPositionClient.getPosition(userUniqueId);
 
         List<ApprovalLineResponse> approvalLine =
             approvalLineClient.getLines(
@@ -62,18 +66,22 @@ public class VacationDocumentService {
 
             DocumentApprovalHistoryResponse history =
                 document.getApprovalHistories().stream()
-                    .filter(item -> item.line().id().equals(line.id()))
+                    .filter(item -> item.approvalLine().id().equals(line.id()))
                     .findAny()
                     .orElse(
                         DocumentApprovalHistoryResponse.builder()
-                            .line(line)
+                            .approvalLine(line)
                             .build());
 
             newApprovalHistories.add(history);
         }
 
         return document.toBuilder()
-            .user(user)
+            .user(
+                user.toBuilder()
+                    .team(team)
+                    .position(position.position())
+                    .build())
             .approvalHistories(newApprovalHistories)
             .build();
     }
@@ -81,6 +89,8 @@ public class VacationDocumentService {
     private List<ApprovalLineResponse> parseApprovalLineList(ApprovalLineResponse approvalLine) {
 
         List<ApprovalLineResponse> result = new ArrayList<>();
+
+        result.add(approvalLine);
 
         for (ApprovalLineResponse child : approvalLine.children()) {
 

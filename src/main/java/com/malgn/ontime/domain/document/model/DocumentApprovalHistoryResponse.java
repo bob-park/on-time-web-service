@@ -8,7 +8,7 @@ import com.malgn.ontime.domain.approval.model.ApprovalLineResponse;
 
 @Builder
 public record DocumentApprovalHistoryResponse(Long id,
-                                              ApprovalLineResponse line,
+                                              ApprovalLineResponse approvalLine,
                                               String status,
                                               String reason,
                                               LocalDateTime createdDate,
