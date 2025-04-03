@@ -22,5 +22,7 @@ public record UserResponse(String uniqueId,
                            LocalDateTime createdDate,
                            String createdBy,
                            LocalDateTime lastModifiedDate,
-                           String lastModifiedBy) {
+                           String lastModifiedBy,
+                           Boolean isLeader,
+                           String description) {
 }

@@ -21,7 +21,6 @@ import com.malgn.ontime.domain.team.model.TeamResponse;
 import com.malgn.ontime.domain.user.feign.UserFeignClient;
 import com.malgn.ontime.domain.user.feign.UserPositionFeignClient;
 import com.malgn.ontime.domain.user.feign.UserTeamFeignClient;
-import com.malgn.ontime.domain.user.model.UserPositionResponse;
 import com.malgn.ontime.domain.user.model.UserResponse;
 
 @Slf4j
@@ -47,8 +46,7 @@ public class VacationDocumentService {
 
         VacationDocumentResponse document = documentClient.getById(id);
         UserResponse user = userClient.getById(userUniqueId);
-        TeamResponse team = userTeamClient.getTeam(userUniqueId);
-        UserPositionResponse position = userPositionClient.getPosition(userUniqueId);
+        TeamResponse team = user.team();
 
         List<ApprovalLineResponse> approvalLine =
             approvalLineClient.getLines(
@@ -77,11 +75,7 @@ public class VacationDocumentService {
         }
 
         return document.toBuilder()
-            .user(
-                user.toBuilder()
-                    .team(team)
-                    .position(position.position())
-                    .build())
+            .user(user)
             .approvalHistories(newApprovalHistories)
             .build();
     }
