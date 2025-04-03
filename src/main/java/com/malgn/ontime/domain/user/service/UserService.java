@@ -5,7 +5,9 @@ import java.time.LocalDate;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Service;
 
@@ -46,6 +48,10 @@ public class UserService {
         Page<UserResponse> page = users.toPage();
 
         return page.map(item -> userClient.getById(item.uniqueId()));
+    }
+
+    public ResponseEntity<Resource> getUserAvatar(String uniqueId){
+        return userClient.getUserAvatar(uniqueId);
     }
 
 }

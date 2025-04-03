@@ -2,6 +2,8 @@ package com.malgn.ontime.domain.document.controller;
 
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
@@ -42,14 +44,15 @@ public class VacationDocumentController {
 
     @GetMapping(path = "")
     public SimplePageImpl<VacationDocumentResponse> search(@AuthenticationPrincipal OidcUser user,
-        SearchVacationDocumentRequest searchRequest) {
+        SearchVacationDocumentRequest searchRequest, @PageableDefault Pageable pageable) {
 
         String uniqueId = AuthUtils.getUniqueId(user);
 
         return documentService.search(
             searchRequest.toBuilder()
                 .userUniqueId(uniqueId)
-                .build());
+                .build(),
+            pageable);
     }
 
     @GetMapping(path = "{id:\\d+}")

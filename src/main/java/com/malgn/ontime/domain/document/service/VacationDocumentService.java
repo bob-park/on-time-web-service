@@ -6,6 +6,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.malgn.common.model.SimplePageImpl;
@@ -38,8 +39,9 @@ public class VacationDocumentService {
         return documentClient.createVacationDocumentResponse(createRequest);
     }
 
-    public SimplePageImpl<VacationDocumentResponse> search(SearchVacationDocumentRequest searchRequest) {
-        return documentClient.search(searchRequest);
+    public SimplePageImpl<VacationDocumentResponse> search(SearchVacationDocumentRequest searchRequest,
+        Pageable pageable) {
+        return documentClient.search(searchRequest, pageable);
     }
 
     public VacationDocumentResponse getDetail(Long id, String userUniqueId) {

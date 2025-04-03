@@ -1,6 +1,8 @@
 package com.malgn.ontime.domain.user.feign;
 
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.core.io.Resource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -15,4 +17,7 @@ public interface UserFeignClient {
 
     @GetMapping(path = "api/v1/users")
     SimplePageImpl<UserResponse> getUsers();
+
+    @GetMapping(path = "api/v1/users/{uniqueId}/avatar")
+    ResponseEntity<Resource> getUserAvatar(@PathVariable String uniqueId);
 }
