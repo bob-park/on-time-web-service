@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.malgn.common.model.SimplePageImpl;
+import com.malgn.ontime.domain.user.model.SearchUserRequest;
 import com.malgn.ontime.domain.user.model.UserResponse;
 import com.malgn.ontime.domain.user.service.UserService;
 
@@ -24,8 +26,8 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping(path = "")
-    public Page<UserResponse> getUsers() {
-        return userService.getUsers();
+    public Page<UserResponse> getUsers(SearchUserRequest searchRequest, Pageable pageable) {
+        return userService.getUsers(searchRequest, pageable);
     }
 
     @GetMapping(path = "me")

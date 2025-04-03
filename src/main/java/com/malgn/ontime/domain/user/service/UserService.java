@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import com.malgn.ontime.domain.user.feign.UserFeignClient;
 import com.malgn.ontime.domain.user.feign.UserLeaveEntryFeignClient;
 import com.malgn.ontime.domain.user.feign.UserPositionFeignClient;
 import com.malgn.ontime.domain.user.feign.UserTeamFeignClient;
+import com.malgn.ontime.domain.user.model.SearchUserRequest;
 import com.malgn.ontime.domain.user.model.UserLeaveEntryResponse;
 import com.malgn.ontime.domain.user.model.UserResponse;
 
@@ -42,8 +44,8 @@ public class UserService {
             .build();
     }
 
-    public Page<UserResponse> getUsers() {
-        SimplePageImpl<UserResponse> users = userClient.getUsers();
+    public Page<UserResponse> getUsers(SearchUserRequest searchRequest, Pageable pageable) {
+        SimplePageImpl<UserResponse> users = userClient.getUsers(searchRequest, pageable);
 
         Page<UserResponse> page = users.toPage();
 
