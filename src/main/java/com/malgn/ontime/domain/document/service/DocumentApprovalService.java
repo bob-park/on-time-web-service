@@ -16,6 +16,7 @@ import com.malgn.ontime.domain.approval.model.SearchApprovalLineRequest;
 import com.malgn.ontime.domain.document.fegin.DocumentFeignClient;
 import com.malgn.ontime.domain.document.model.DocumentApprovalHistoryResponse;
 import com.malgn.ontime.domain.document.model.DocumentResponse;
+import com.malgn.ontime.domain.document.model.RejectDocumentRequest;
 import com.malgn.ontime.domain.document.model.SearchDocumentApprovalHistoryRequest;
 import com.malgn.ontime.domain.user.feign.UserFeignClient;
 import com.malgn.ontime.domain.user.model.UserResponse;
@@ -89,6 +90,14 @@ public class DocumentApprovalService {
                     .approvalHistories(newApprovalHistories)
                     .build())
             .build();
+    }
+
+    public DocumentApprovalHistoryResponse approve(long approvalId) {
+        return documentClient.approveDocument(approvalId);
+    }
+
+    public DocumentApprovalHistoryResponse reject(long approvalId, RejectDocumentRequest rejectRequest) {
+        return documentClient.rejectDocument(approvalId, rejectRequest);
     }
 
     private List<ApprovalLineResponse> parseApprovalLineList(ApprovalLineResponse approvalLine) {

@@ -8,11 +8,14 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.malgn.ontime.common.auth.AuthUtils;
 import com.malgn.ontime.domain.document.model.DocumentApprovalHistoryResponse;
+import com.malgn.ontime.domain.document.model.RejectDocumentRequest;
 import com.malgn.ontime.domain.document.model.SearchDocumentApprovalHistoryRequest;
 import com.malgn.ontime.domain.document.service.DocumentApprovalService;
 
@@ -39,5 +42,16 @@ public class DocumentApprovalController {
     @GetMapping(path = "{approvalId}")
     public DocumentApprovalHistoryResponse getApproval(@PathVariable Long approvalId) {
         return documentApprovalService.getById(approvalId);
+    }
+
+    @PostMapping(path = "{approvalId}")
+    public DocumentApprovalHistoryResponse approveDocument(@PathVariable Long approvalId) {
+        return documentApprovalService.approve(approvalId);
+    }
+
+    @PostMapping(path = "{approvalId}/reject")
+    public DocumentApprovalHistoryResponse rejectDocument(@PathVariable Long approvalId,
+        @RequestBody RejectDocumentRequest rejectRequest) {
+        return documentApprovalService.reject(approvalId, rejectRequest);
     }
 }
