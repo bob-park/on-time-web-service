@@ -46,7 +46,7 @@ public class VacationDocumentService {
 
     public VacationDocumentResponse getDetail(Long id, String userUniqueId) {
 
-        VacationDocumentResponse document = documentClient.getById(id);
+        VacationDocumentResponse document = documentClient.getVacationById(id);
         UserResponse user = userClient.getById(userUniqueId);
         TeamResponse team = user.team();
 

@@ -4,7 +4,6 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,7 +39,7 @@ public interface DocumentFeignClient {
         Pageable pageable);
 
     @GetMapping(path = "api/v1/documents/vacations/{id}")
-    VacationDocumentResponse getById(@PathVariable("id") Long id);
+    VacationDocumentResponse getVacationById(@PathVariable("id") Long id);
 
     /*
      * approval

@@ -53,7 +53,7 @@ public class DocumentApprovalService {
 
         DocumentApprovalHistoryResponse result = documentClient.getApproval(id);
 
-        DocumentResponse document = documentClient.getById(result.document().getId());
+        DocumentResponse document = getDocumentDetail(result.document().getType(), result.document().getId());
         UserResponse user = userClient.getById(document.getUserUniqueId());
 
         List<ApprovalLineResponse> approvalLine =
@@ -82,7 +82,6 @@ public class DocumentApprovalService {
             newApprovalHistories.add(history);
         }
 
-
         return result.toBuilder()
             .document(
                 document.toBuilder()
@@ -106,6 +105,23 @@ public class DocumentApprovalService {
         }
 
         return result;
+    }
+
+    private DocumentResponse getDocumentDetail(String type, long id) {
+
+        switch (type) {
+            case "VACATION" -> {
+                return documentClient.getVacationById(id);
+            }
+            case "OVERTIME_REPORT" -> {
+                return null;
+            }
+            default -> {
+                return null;
+            }
+
+        }
+
     }
 
 }
