@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,5 +34,10 @@ public class DocumentApprovalController {
                 .userUniqueId(uniqueId)
                 .build(),
             pageable);
+    }
+
+    @GetMapping(path = "{approvalId}")
+    public DocumentApprovalHistoryResponse getApproval(@PathVariable Long approvalId) {
+        return documentApprovalService.getById(approvalId);
     }
 }
