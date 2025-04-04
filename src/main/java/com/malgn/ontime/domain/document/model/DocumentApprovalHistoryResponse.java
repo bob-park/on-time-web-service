@@ -6,8 +6,9 @@ import lombok.Builder;
 
 import com.malgn.ontime.domain.approval.model.ApprovalLineResponse;
 
-@Builder
+@Builder(toBuilder = true)
 public record DocumentApprovalHistoryResponse(Long id,
+                                              DocumentResponse document,
                                               ApprovalLineResponse approvalLine,
                                               String status,
                                               String reason,

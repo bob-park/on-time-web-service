@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.malgn.common.model.SimplePageImpl;
 import com.malgn.ontime.domain.approval.feign.ApprovalLineFeignClient;
-import com.malgn.ontime.domain.approval.feign.SearchApprovalLineRequest;
+import com.malgn.ontime.domain.approval.model.SearchApprovalLineRequest;
 import com.malgn.ontime.domain.approval.model.ApprovalLineResponse;
 import com.malgn.ontime.domain.document.fegin.DocumentFeignClient;
 import com.malgn.ontime.domain.document.model.CreateVacationDocumentRequest;

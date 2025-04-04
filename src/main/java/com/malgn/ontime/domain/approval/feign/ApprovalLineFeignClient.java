@@ -7,6 +7,7 @@ import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.malgn.ontime.domain.approval.model.ApprovalLineResponse;
+import com.malgn.ontime.domain.approval.model.SearchApprovalLineRequest;
 
 @FeignClient(name = "on-time-e-work-api", contextId = "on-time-e-work-api-approval-line")
 public interface ApprovalLineFeignClient {

@@ -1,4 +1,4 @@
-package com.malgn.ontime.domain.approval.feign;
+package com.malgn.ontime.domain.approval.model;
 
 import lombok.Builder;
 import lombok.Getter;
