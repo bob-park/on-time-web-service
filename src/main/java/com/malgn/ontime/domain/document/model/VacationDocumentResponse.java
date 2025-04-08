@@ -26,6 +26,6 @@ public class VacationDocumentResponse extends DocumentResponse {
     private BigDecimal usedDays;
     private String reason;
 
-    private List<UserCompLeaveEntryResponse> usedCompLeaveEntries;
+    private List<UsedCompLeaveEntryResponse> usedCompLeaveEntries;
 
 }

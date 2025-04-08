@@ -1,5 +1,7 @@
 package com.malgn.ontime.domain.user.controller;
 
+import java.util.List;
+
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.core.io.Resource;
@@ -14,7 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.malgn.common.model.SimplePageImpl;
+import com.malgn.ontime.common.auth.AuthUtils;
+import com.malgn.ontime.domain.user.feign.UserCompLeaveEntryFeignClient;
+import com.malgn.ontime.domain.user.feign.UserFeignClient;
 import com.malgn.ontime.domain.user.model.SearchUserRequest;
+import com.malgn.ontime.domain.user.model.UserCompLeaveEntryResponse;
 import com.malgn.ontime.domain.user.model.UserResponse;
 import com.malgn.ontime.domain.user.service.UserService;
 
@@ -22,6 +28,8 @@ import com.malgn.ontime.domain.user.service.UserService;
 @RestController
 @RequestMapping("users")
 public class UserController {
+
+    private final UserCompLeaveEntryFeignClient userCompLeaveEntryClient;
 
     private final UserService userService;
 
@@ -40,4 +48,11 @@ public class UserController {
         return userService.getUserAvatar(uniqueId);
     }
 
+    @GetMapping(path = "comp/leave/entries")
+    public List<UserCompLeaveEntryResponse> getCompLeaveEntries(@AuthenticationPrincipal OidcUser oidcUser) {
+
+        String uniqueId = AuthUtils.getUniqueId(oidcUser);
+
+        return userCompLeaveEntryClient.getCompLeaveEntry(uniqueId);
+    }
 }

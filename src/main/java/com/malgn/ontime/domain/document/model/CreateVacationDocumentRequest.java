@@ -12,5 +12,5 @@ public record CreateVacationDocumentRequest(String userUniqueId,
                                             LocalDate startDate,
                                             LocalDate endDate,
                                             String reason,
-                                            List<Long> compLeaveEntryIds) {
+                                            List<UsedCompLeaveEntryRequest> compLeaveEntries) {
 }
