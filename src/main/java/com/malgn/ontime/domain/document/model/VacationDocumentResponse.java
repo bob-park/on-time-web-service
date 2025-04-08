@@ -10,8 +10,6 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
-import com.malgn.ontime.domain.user.model.UserCompLeaveEntryResponse;
-
 @ToString
 @Getter
 @Setter
