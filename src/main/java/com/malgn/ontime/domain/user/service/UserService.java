@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
@@ -14,10 +15,11 @@ import org.springframework.stereotype.Service;
 
 import com.malgn.common.model.SimplePageImpl;
 import com.malgn.ontime.common.auth.AuthUtils;
+import com.malgn.ontime.domain.document.fegin.DocumentFeignClient;
+import com.malgn.ontime.domain.document.model.DocumentApprovalHistoryResponse;
+import com.malgn.ontime.domain.document.model.SearchDocumentApprovalHistoryRequest;
 import com.malgn.ontime.domain.user.feign.UserFeignClient;
 import com.malgn.ontime.domain.user.feign.UserLeaveEntryFeignClient;
-import com.malgn.ontime.domain.user.feign.UserPositionFeignClient;
-import com.malgn.ontime.domain.user.feign.UserTeamFeignClient;
 import com.malgn.ontime.domain.user.model.SearchUserRequest;
 import com.malgn.ontime.domain.user.model.UserLeaveEntryResponse;
 import com.malgn.ontime.domain.user.model.UserResponse;
@@ -28,9 +30,8 @@ import com.malgn.ontime.domain.user.model.UserResponse;
 public class UserService {
 
     private final UserFeignClient userClient;
-    private final UserPositionFeignClient userPositionClient;
-    private final UserTeamFeignClient userTeamClient;
     private final UserLeaveEntryFeignClient userLeaveEntryClient;
+    private final DocumentFeignClient documentClient;
 
     public UserResponse me(OidcUser user) {
 
@@ -39,8 +40,17 @@ public class UserService {
         UserResponse result = userClient.getById(uniqueId);
         UserLeaveEntryResponse leaveEntry = userLeaveEntryClient.getLeaveEntry(uniqueId, LocalDate.now().getYear());
 
+        SimplePageImpl<DocumentApprovalHistoryResponse> documents =
+            documentClient.searchApproval(
+                SearchDocumentApprovalHistoryRequest.builder()
+                    .userUniqueId(uniqueId)
+                    .status("WAITING")
+                    .build(),
+                PageRequest.of(0, 100));
+
         return result.toBuilder()
             .leaveEntry(leaveEntry)
+            .proceedingDocumentsCount(documents.total())
             .build();
     }
 
@@ -52,7 +62,7 @@ public class UserService {
         return page.map(item -> userClient.getById(item.uniqueId()));
     }
 
-    public ResponseEntity<Resource> getUserAvatar(String uniqueId){
+    public ResponseEntity<Resource> getUserAvatar(String uniqueId) {
         return userClient.getUserAvatar(uniqueId);
     }
 

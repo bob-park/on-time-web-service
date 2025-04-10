@@ -24,5 +24,6 @@ public record UserResponse(String uniqueId,
                            LocalDateTime lastModifiedDate,
                            String lastModifiedBy,
                            Boolean isLeader,
-                           String description) {
+                           String description,
+                           Long proceedingDocumentsCount) {
 }
