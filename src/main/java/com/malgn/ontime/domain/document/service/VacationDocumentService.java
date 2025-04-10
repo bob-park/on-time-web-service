@@ -6,6 +6,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -32,16 +33,16 @@ public class VacationDocumentService {
     private final ApprovalLineFeignClient approvalLineClient;
     private final DocumentFeignClient documentClient;
     private final UserFeignClient userClient;
-    private final UserTeamFeignClient userTeamClient;
-    private final UserPositionFeignClient userPositionClient;
 
     public VacationDocumentResponse createVacation(CreateVacationDocumentRequest createRequest) {
         return documentClient.createVacationDocumentResponse(createRequest);
     }
 
-    public SimplePageImpl<VacationDocumentResponse> search(SearchVacationDocumentRequest searchRequest,
+    public Page<VacationDocumentResponse> search(SearchVacationDocumentRequest searchRequest,
         Pageable pageable) {
-        return documentClient.search(searchRequest, pageable);
+        Page<VacationDocumentResponse> result = documentClient.search(searchRequest, pageable).toPage();
+
+        return result.map(item -> documentClient.getVacationById(item.getId()));
     }
 
     public VacationDocumentResponse getDetail(Long id, String userUniqueId) {
