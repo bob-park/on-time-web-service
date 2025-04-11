@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.malgn.common.model.SimplePageImpl;
 import com.malgn.ontime.common.auth.AuthUtils;
@@ -65,6 +66,20 @@ public class UserService {
 
     public ResponseEntity<Resource> getUserAvatar(String uniqueId) {
         return userClient.getUserAvatar(uniqueId);
+    }
+
+    public UserResponse updateUserAvatar(OidcUser user, MultipartFile avatar) {
+
+        String uniqueId = AuthUtils.getUniqueId(user);
+
+        return userClient.updateUserAvatar(uniqueId, avatar);
+    }
+
+    public UserResponse resetUserAvatar(OidcUser user) {
+
+        String uniqueId = AuthUtils.getUniqueId(user);
+
+        return userClient.resetUserAvatar(uniqueId);
     }
 
     public UserResponse updatePassword(OidcUser user, UpdateUserPasswordRequest updateRequest) {

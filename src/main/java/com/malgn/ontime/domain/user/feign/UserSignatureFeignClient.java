@@ -2,6 +2,7 @@ package com.malgn.ontime.domain.user.feign;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.core.io.Resource;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,7 +18,7 @@ public interface UserSignatureFeignClient {
     @GetMapping(path = "api/v1/users/{uniqueId}/signature")
     ResponseEntity<Resource> getSignature(@PathVariable String uniqueId);
 
-    @PostMapping(path = "api/v1/users/{uniqueId}/signature")
+    @PostMapping(path = "api/v1/users/{uniqueId}/signature", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     UserSignatureResponse updateSignature(@PathVariable String uniqueId, @RequestPart("signature") MultipartFile signature);
 
     @PostMapping(path = "api/v1/users/{uniqueId}/signature/reset")
