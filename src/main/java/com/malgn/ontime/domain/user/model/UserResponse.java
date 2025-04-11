@@ -18,8 +18,12 @@ public record UserResponse(String uniqueId,
                            RoleResponse role,
                            PositionResponse position,
                            TeamResponse team,
+                           UserLeaveEntryResponse leaveEntry,
                            LocalDateTime createdDate,
                            String createdBy,
                            LocalDateTime lastModifiedDate,
-                           String lastModifiedBy) {
+                           String lastModifiedBy,
+                           Boolean isLeader,
+                           String description,
+                           Long proceedingDocumentsCount) {
 }
