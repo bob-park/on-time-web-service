@@ -11,7 +11,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,6 +23,7 @@ import com.malgn.ontime.common.auth.AuthUtils;
 import com.malgn.ontime.domain.user.feign.UserCompLeaveEntryFeignClient;
 import com.malgn.ontime.domain.user.feign.UserFeignClient;
 import com.malgn.ontime.domain.user.model.SearchUserRequest;
+import com.malgn.ontime.domain.user.model.UpdateUserPasswordRequest;
 import com.malgn.ontime.domain.user.model.UserCompLeaveEntryResponse;
 import com.malgn.ontime.domain.user.model.UserResponse;
 import com.malgn.ontime.domain.user.service.UserService;
@@ -54,5 +58,11 @@ public class UserController {
         String uniqueId = AuthUtils.getUniqueId(oidcUser);
 
         return userCompLeaveEntryClient.getCompLeaveEntry(uniqueId);
+    }
+
+    @PostMapping(path = "password")
+    public UserResponse updatePassword(@AuthenticationPrincipal OidcUser user,
+        @RequestBody UpdateUserPasswordRequest updateUserPasswordRequest) {
+        return userService.updatePassword(user, updateUserPasswordRequest);
     }
 }

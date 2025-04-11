@@ -21,6 +21,7 @@ import com.malgn.ontime.domain.document.model.SearchDocumentApprovalHistoryReque
 import com.malgn.ontime.domain.user.feign.UserFeignClient;
 import com.malgn.ontime.domain.user.feign.UserLeaveEntryFeignClient;
 import com.malgn.ontime.domain.user.model.SearchUserRequest;
+import com.malgn.ontime.domain.user.model.UpdateUserPasswordRequest;
 import com.malgn.ontime.domain.user.model.UserLeaveEntryResponse;
 import com.malgn.ontime.domain.user.model.UserResponse;
 
@@ -64,6 +65,13 @@ public class UserService {
 
     public ResponseEntity<Resource> getUserAvatar(String uniqueId) {
         return userClient.getUserAvatar(uniqueId);
+    }
+
+    public UserResponse updatePassword(OidcUser user, UpdateUserPasswordRequest updateRequest) {
+
+        String uniqueId = AuthUtils.getUniqueId(user);
+
+        return userClient.updatePassword(uniqueId, updateRequest);
     }
 
 }
