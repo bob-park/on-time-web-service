@@ -64,6 +64,10 @@ public class UserService {
         return page.map(item -> userClient.getById(item.uniqueId()));
     }
 
+    public UserResponse getUser(String uniqueId) {
+        return userClient.getById(uniqueId);
+    }
+
     public ResponseEntity<Resource> getUserAvatar(String uniqueId) {
         return userClient.getUserAvatar(uniqueId);
     }

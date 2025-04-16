@@ -46,6 +46,11 @@ public class UserController {
         return userService.me(oidcUser);
     }
 
+    @GetMapping(path = "{uniqueId}")
+    public UserResponse getUser(@PathVariable String uniqueId) {
+        return userService.getUser(uniqueId);
+    }
+
     @GetMapping(path = "{uniqueId}/avatar")
     public ResponseEntity<Resource> getUserAvatar(@PathVariable String uniqueId) {
         return userService.getUserAvatar(uniqueId);
