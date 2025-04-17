@@ -35,7 +35,7 @@ public interface DocumentFeignClient {
     VacationDocumentResponse createVacationDocumentResponse(@RequestBody CreateVacationDocumentRequest createRequest);
 
     @GetMapping(path = "api/v1/documents/vacations")
-    SimplePageImpl<VacationDocumentResponse> search(@SpringQueryMap SearchVacationDocumentRequest searchRequest,
+    SimplePageImpl<VacationDocumentResponse> searchVacation(@SpringQueryMap SearchVacationDocumentRequest searchRequest,
         Pageable pageable);
 
     @GetMapping(path = "api/v1/documents/vacations/{id}")

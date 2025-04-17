@@ -10,7 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.malgn.common.model.SimplePageImpl;
 import com.malgn.ontime.domain.approval.feign.ApprovalLineFeignClient;
 import com.malgn.ontime.domain.approval.model.SearchApprovalLineRequest;
 import com.malgn.ontime.domain.approval.model.ApprovalLineResponse;
@@ -21,8 +20,6 @@ import com.malgn.ontime.domain.document.model.SearchVacationDocumentRequest;
 import com.malgn.ontime.domain.document.model.VacationDocumentResponse;
 import com.malgn.ontime.domain.team.model.TeamResponse;
 import com.malgn.ontime.domain.user.feign.UserFeignClient;
-import com.malgn.ontime.domain.user.feign.UserPositionFeignClient;
-import com.malgn.ontime.domain.user.feign.UserTeamFeignClient;
 import com.malgn.ontime.domain.user.model.UserResponse;
 
 @Slf4j
@@ -40,7 +37,7 @@ public class VacationDocumentService {
 
     public Page<VacationDocumentResponse> search(SearchVacationDocumentRequest searchRequest,
         Pageable pageable) {
-        Page<VacationDocumentResponse> result = documentClient.search(searchRequest, pageable).toPage();
+        Page<VacationDocumentResponse> result = documentClient.searchVacation(searchRequest, pageable).toPage();
 
         return result.map(item -> documentClient.getVacationById(item.getId()));
     }
