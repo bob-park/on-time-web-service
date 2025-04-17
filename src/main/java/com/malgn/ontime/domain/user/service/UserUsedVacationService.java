@@ -49,6 +49,7 @@ public class UserUsedVacationService {
                         .startDateFrom(LocalDate.of(searchRequest.year(), 1, 1))
                         .endDateTo(LocalDate.of(searchRequest.year(), 12, 31))
                         .status("APPROVED")
+                        .vacationType("GENERAL")
                         .build(),
                     PageRequest.of(0, 100)).content();
 
