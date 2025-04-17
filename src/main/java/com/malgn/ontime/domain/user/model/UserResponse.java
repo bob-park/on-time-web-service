@@ -25,5 +25,6 @@ public record UserResponse(String uniqueId,
                            String lastModifiedBy,
                            Boolean isLeader,
                            String description,
-                           Long proceedingDocumentsCount) {
+                           Long proceedingDocumentsCount,
+                           UserEmploymentResponse employment) {
 }

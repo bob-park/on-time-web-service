@@ -18,15 +18,15 @@ public class SearchVacationDocumentRequest {
     private String status;
     private String vacationType;
     private LocalDate startDateFrom;
-    private LocalDate startDateTo;
+    private LocalDate endDateTo;
 
     @Builder(toBuilder = true)
     private SearchVacationDocumentRequest(String userUniqueId, String status, String vacationType,
-        LocalDate startDateFrom, LocalDate startDateTo) {
+        LocalDate startDateFrom, LocalDate endDateTo) {
         this.userUniqueId = userUniqueId;
         this.status = status;
         this.vacationType = vacationType;
         this.startDateFrom = startDateFrom;
-        this.startDateTo = startDateTo;
+        this.endDateTo = endDateTo;
     }
 }
