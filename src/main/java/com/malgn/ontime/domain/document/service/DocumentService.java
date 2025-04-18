@@ -22,4 +22,8 @@ public class DocumentService {
         return documentClient.getDocuments(searchRequest, pageable);
     }
 
+    public DocumentResponse cancel(long id) {
+        return documentClient.cancelDocument(id);
+    }
+
 }

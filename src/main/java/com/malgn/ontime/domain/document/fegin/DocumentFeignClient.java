@@ -3,6 +3,7 @@ package com.malgn.ontime.domain.document.fegin;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,6 +28,9 @@ public interface DocumentFeignClient {
     @GetMapping(path = "api/v1/documents")
     SimplePageImpl<DocumentResponse> getDocuments(@SpringQueryMap SearchDocumentRequest searchRequest,
         Pageable pageable);
+
+    @DeleteMapping(path = "api/v1/documents/{id}/cancel")
+    DocumentResponse cancelDocument(@PathVariable("id") Long id);
 
     /*
      * vacation
