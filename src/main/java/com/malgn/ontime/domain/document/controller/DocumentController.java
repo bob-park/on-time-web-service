@@ -10,6 +10,7 @@ import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,6 +38,11 @@ public class DocumentController {
                     .build(),
                 pageable)
             .toPage();
+    }
+
+    @PostMapping(path = "{id:\\d+}/request")
+    public DocumentResponse request(@PathVariable Long id) {
+        return documentService.request(id);
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

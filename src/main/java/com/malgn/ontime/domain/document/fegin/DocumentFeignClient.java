@@ -29,6 +29,9 @@ public interface DocumentFeignClient {
     SimplePageImpl<DocumentResponse> getDocuments(@SpringQueryMap SearchDocumentRequest searchRequest,
         Pageable pageable);
 
+    @PostMapping(path = "api/v1/documents/{id}/request")
+    DocumentResponse requestDocument(@PathVariable("id") Long id);
+    
     @DeleteMapping(path = "api/v1/documents/{id}/cancel")
     DocumentResponse cancelDocument(@PathVariable("id") Long id);
 
