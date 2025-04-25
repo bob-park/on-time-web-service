@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.malgn.common.model.SimplePageImpl;
+import com.malgn.ontime.domain.document.model.CreateOvertimeDocumentRequest;
 import com.malgn.ontime.domain.document.model.CreateVacationDocumentRequest;
 import com.malgn.ontime.domain.document.model.DocumentApprovalHistoryResponse;
 import com.malgn.ontime.domain.document.model.DocumentResponse;
+import com.malgn.ontime.domain.document.model.OverTimeWorkDocumentResponse;
 import com.malgn.ontime.domain.document.model.RejectDocumentRequest;
 import com.malgn.ontime.domain.document.model.SearchDocumentApprovalHistoryRequest;
 import com.malgn.ontime.domain.document.model.SearchDocumentRequest;
@@ -31,7 +33,7 @@ public interface DocumentFeignClient {
 
     @PostMapping(path = "api/v1/documents/{id}/request")
     DocumentResponse requestDocument(@PathVariable("id") Long id);
-    
+
     @DeleteMapping(path = "api/v1/documents/{id}/cancel")
     DocumentResponse cancelDocument(@PathVariable("id") Long id);
 
@@ -47,6 +49,13 @@ public interface DocumentFeignClient {
 
     @GetMapping(path = "api/v1/documents/vacations/{id}")
     VacationDocumentResponse getVacationById(@PathVariable("id") Long id);
+
+    /*
+     * overtime work document
+     */
+    @PostMapping(path = "api/v1/documents/overtimes")
+    OverTimeWorkDocumentResponse createOverTimeWorkDocument(
+        @RequestBody CreateOvertimeDocumentRequest createRequest);
 
     /*
      * approval
