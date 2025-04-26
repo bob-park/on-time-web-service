@@ -122,7 +122,7 @@ public class DocumentApprovalService {
             case "VACATION" -> {
                 return documentClient.getVacationById(id);
             }
-            case "OVERTIME_REPORT" -> {
+            case "OVERTIME_WORK" -> {
                 return documentClient.getOverTimeWorkTime(id);
             }
             default -> {
