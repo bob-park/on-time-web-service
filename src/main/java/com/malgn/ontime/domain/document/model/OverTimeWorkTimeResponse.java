@@ -6,7 +6,7 @@ import java.util.List;
 
 import lombok.Builder;
 
-@Builder
+@Builder(toBuilder = true)
 public record OverTimeWorkTimeResponse(Long id,
                                        LocalDateTime startDate,
                                        LocalDateTime endDate,
