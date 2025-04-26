@@ -123,7 +123,7 @@ public class DocumentApprovalService {
                 return documentClient.getVacationById(id);
             }
             case "OVERTIME_REPORT" -> {
-                return null;
+                return documentClient.getOverTimeWorkTime(id);
             }
             default -> {
                 return null;
