@@ -61,7 +61,7 @@ public class UserService {
 
         Page<UserResponse> page = users.toPage();
 
-        return page.map(item -> userClient.getById(item.uniqueId()));
+        return page.map(item -> userClient.getById(item.id()));
     }
 
     public UserResponse getUser(String uniqueId) {

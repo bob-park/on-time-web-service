@@ -7,7 +7,7 @@ import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 
 public interface AuthUtils {
 
-    String PROFILE_UNIQUE_ID = "uniqueId";
+    String PROFILE_UNIQUE_ID = "id";
     String PROFILE_USER_ID = "userId";
     String PROFILE_USERNAME = "username";
     String PROFILE_ROLE = "role";

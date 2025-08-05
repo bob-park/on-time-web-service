@@ -9,7 +9,7 @@ import com.malgn.ontime.domain.position.model.PositionResponse;
 import com.malgn.ontime.domain.team.model.TeamResponse;
 
 @Builder(toBuilder = true)
-public record UserResponse(String uniqueId,
+public record UserResponse(String id,
                            String userId,
                            String username,
                            String email,
