@@ -1,5 +1,7 @@
 package com.malgn.ontime.domain.document.service;
 
+import static org.apache.commons.lang3.math.NumberUtils.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,12 +48,12 @@ public class VacationDocumentService {
 
         VacationDocumentResponse document = documentClient.getVacationById(id);
         UserResponse user = userClient.getById(userUniqueId);
-        TeamResponse team = user.team();
+        TeamResponse team = user.group();
 
         List<ApprovalLineResponse> approvalLine =
             approvalLineClient.getLines(
                 SearchApprovalLineRequest.builder()
-                    .teamId(team.id())
+                    .teamId(toLong(team.id()))
                     .documentType("VACATION")
                     .build());
 

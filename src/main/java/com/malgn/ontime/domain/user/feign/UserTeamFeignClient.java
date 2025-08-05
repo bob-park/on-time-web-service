@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.malgn.ontime.domain.team.model.TeamResponse;
 
-@FeignClient(name = "auth-user-api", contextId = "auth-user-api-team")
+@FeignClient(name = "auth-user-api", contextId = "auth-user-api-group")
 public interface UserTeamFeignClient {
 
-    @GetMapping(path = "api/v1/teams")
+    @GetMapping(path = "api/v1/groups")
     List<TeamResponse> getTeams();
 
 }

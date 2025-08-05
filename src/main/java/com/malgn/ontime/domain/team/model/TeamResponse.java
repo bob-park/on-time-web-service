@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.malgn.ontime.domain.user.model.UserResponse;
 
-public record TeamResponse(Long id,
+public record TeamResponse(String id,
                            String name,
                            String description,
                            List<UserResponse> users,
@@ -14,5 +14,5 @@ public record TeamResponse(Long id,
                            LocalDateTime lastModifiedDate,
                            String lastModifiedBy,
                            Boolean isLeader,
-                           String teamUserDescription) {
+                           String groupUserDescription) {
 }

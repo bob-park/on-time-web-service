@@ -1,5 +1,7 @@
 package com.malgn.ontime.domain.document.service;
 
+import static org.apache.commons.lang3.math.NumberUtils.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,7 +62,7 @@ public class DocumentApprovalService {
         List<ApprovalLineResponse> approvalLine =
             approvalLineClient.getLines(
                 SearchApprovalLineRequest.builder()
-                    .teamId(user.team().id())
+                    .teamId(toLong(user.group().id()))
                     .documentType(document.getType())
                     .build());
 

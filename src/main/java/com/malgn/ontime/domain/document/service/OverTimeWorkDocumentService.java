@@ -1,5 +1,7 @@
 package com.malgn.ontime.domain.document.service;
 
+import static org.apache.commons.lang3.math.NumberUtils.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +20,6 @@ import com.malgn.ontime.domain.document.fegin.DocumentFeignClient;
 import com.malgn.ontime.domain.document.model.CreateOvertimeDocumentRequest;
 import com.malgn.ontime.domain.document.model.DocumentApprovalHistoryResponse;
 import com.malgn.ontime.domain.document.model.OverTimeWorkDocumentResponse;
-import com.malgn.ontime.domain.document.model.OverTimeWorkTimeResponse;
 import com.malgn.ontime.domain.team.model.TeamResponse;
 import com.malgn.ontime.domain.user.feign.UserFeignClient;
 import com.malgn.ontime.domain.user.model.UserResponse;
@@ -43,12 +44,12 @@ public class OverTimeWorkDocumentService {
 
         OverTimeWorkDocumentResponse document = documentClient.getOverTimeWorkTime(id);
         UserResponse user = userClient.getById(uniqueId);
-        TeamResponse team = user.team();
+        TeamResponse team = user.group();
 
         List<ApprovalLineResponse> approvalLine =
             approvalLineClient.getLines(
                 SearchApprovalLineRequest.builder()
-                    .teamId(team.id())
+                    .teamId(toLong(team.id()))
                     .documentType("OVERTIME_WORK")
                     .build());
 
