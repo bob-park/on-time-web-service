@@ -13,5 +13,6 @@ import com.malgn.ontime.domain.user.model.UserEmploymentResponse;
 public interface UserEmploymentFeignClient {
 
     @GetMapping(path = "api/v1/users/employments")
-    SimplePageImpl<UserEmploymentResponse> search(@SpringQueryMap SearchUserEmploymentRequest searchRequest, Pageable pageable);
+    SimplePageImpl<UserEmploymentResponse> search(@SpringQueryMap SearchUserEmploymentRequest searchRequest,
+        Pageable pageable);
 }
