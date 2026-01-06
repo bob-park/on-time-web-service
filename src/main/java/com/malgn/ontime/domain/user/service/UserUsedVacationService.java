@@ -49,7 +49,6 @@ public class UserUsedVacationService {
                         .startDateFrom(LocalDate.of(searchRequest.year(), 1, 1))
                         .endDateTo(LocalDate.of(searchRequest.year(), 12, 31))
                         .status("APPROVED")
-                        .vacationType("GENERAL")
                         .build(),
                     PageRequest.of(0, 100)).content();
 
@@ -90,7 +89,20 @@ public class UserUsedVacationService {
                         return item;
                     });
 
-            findItem.add(usedVacation.getUsedDays());
+
+            switch (usedVacation.getVacationType()) {
+                case "GENERAL" -> {
+                    findItem.add(usedVacation.getUsedDays());
+                }
+                case "COMPENSATORY" -> {
+                    findItem.addComp(usedVacation.getUsedDays());
+                }
+
+                default -> {
+                    // ignore
+                }
+
+            }
 
         }
 
