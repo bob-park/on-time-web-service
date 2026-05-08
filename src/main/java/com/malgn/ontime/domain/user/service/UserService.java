@@ -7,8 +7,10 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Service;
@@ -57,11 +59,14 @@ public class UserService {
     }
 
     public Page<UserResponse> getUsers(SearchUserRequest searchRequest, Pageable pageable) {
-        SimplePageImpl<UserResponse> users = userClient.getUsers(searchRequest, pageable);
+        PagedModel<UserResponse> users = userClient.getUsers(searchRequest, pageable);
 
-        Page<UserResponse> page = users.toPage();
-
-        return page.map(item -> userClient.getById(item.id()));
+        return new PageImpl<>(
+            users.getContent(),
+            PageRequest.of(
+                (int)users.getMetadata().number(),
+                (int)users.getMetadata().size()),
+            users.getMetadata().totalElements());
     }
 
     public UserResponse getUser(String uniqueId) {

@@ -4,6 +4,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedModel;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,7 +26,7 @@ public interface UserFeignClient {
     UserResponse getById(@PathVariable String uniqueId);
 
     @GetMapping(path = "api/v1/users")
-    SimplePageImpl<UserResponse> getUsers(@SpringQueryMap SearchUserRequest searchRequest, Pageable pageable);
+    PagedModel<UserResponse> getUsers(@SpringQueryMap SearchUserRequest searchRequest, Pageable pageable);
 
     @GetMapping(path = "api/v1/users/{uniqueId}/avatar")
     ResponseEntity<Resource> getUserAvatar(@PathVariable String uniqueId);
