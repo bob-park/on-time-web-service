@@ -10,13 +10,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PagedModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.malgn.common.model.SimplePageImpl;
+import com.malgn.common.model.SimplePagedModel;
 import com.malgn.ontime.common.auth.AuthUtils;
 import com.malgn.ontime.domain.document.fegin.DocumentFeignClient;
 import com.malgn.ontime.domain.document.model.DocumentApprovalHistoryResponse;
@@ -59,14 +59,14 @@ public class UserService {
     }
 
     public Page<UserResponse> getUsers(SearchUserRequest searchRequest, Pageable pageable) {
-        PagedModel<UserResponse> users = userClient.getUsers(searchRequest, pageable);
+        SimplePagedModel<UserResponse> users = userClient.getUsers(searchRequest, pageable);
 
         return new PageImpl<>(
-            users.getContent(),
+            users.content(),
             PageRequest.of(
-                (int)users.getMetadata().number(),
-                (int)users.getMetadata().size()),
-            users.getMetadata().totalElements());
+                (int)users.page().number(),
+                (int)users.page().size()),
+            users.page().totalElements());
     }
 
     public UserResponse getUser(String uniqueId) {
