@@ -21,10 +21,10 @@ import com.malgn.ontime.domain.user.model.UserResponse;
 @FeignClient(name = "auth-user-api", contextId = "auth-user-api")
 public interface UserFeignClient {
 
-    @GetMapping(path = "api/v1/users/{uniqueId}")
+    @GetMapping(path = "api/v1/users/{uniqueId}/summary")
     UserResponse getById(@PathVariable String uniqueId);
 
-    @GetMapping(path = "api/v1/users")
+    @GetMapping(path = "api/v1/users/summaries")
     SimplePagedModel<UserResponse> getUsers(@SpringQueryMap SearchUserRequest searchRequest, Pageable pageable);
 
     @GetMapping(path = "api/v1/users/{uniqueId}/avatar")
