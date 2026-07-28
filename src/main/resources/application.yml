@@ -46,6 +46,7 @@ spring:
             scope:
               - openid
               - profile
+              - users:read:summary
   cloud:
     openfeign:
       client:

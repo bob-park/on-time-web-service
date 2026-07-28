@@ -62,12 +62,12 @@ public class DocumentApprovalService {
         List<ApprovalLineResponse> approvalLine =
             approvalLineClient.getLines(
                 SearchApprovalLineRequest.builder()
-                    .teamId(toLong(user.groups().getFirst().id()))
+                    .teamId(toLong(user.groups().getFirst().group().id()))
                     .documentType(document.getType())
                     .build());
 
         List<ApprovalLineResponse> lines =
-            approvalLine.isEmpty() ? List.of() : parseApprovalLineList(approvalLine.get(0));
+            approvalLine.isEmpty() ? List.of() : parseApprovalLineList(approvalLine.getFirst());
 
         List<DocumentApprovalHistoryResponse> newApprovalHistories = new ArrayList<>();
 

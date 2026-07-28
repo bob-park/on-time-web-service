@@ -44,7 +44,7 @@ public class OverTimeWorkDocumentService {
 
         OverTimeWorkDocumentResponse document = documentClient.getOverTimeWorkTime(id);
         UserResponse user = userClient.getById(uniqueId);
-        TeamResponse team = user.groups().getFirst();
+        TeamResponse team = user.groups().getFirst().group();
 
         List<ApprovalLineResponse> approvalLine =
             approvalLineClient.getLines(
