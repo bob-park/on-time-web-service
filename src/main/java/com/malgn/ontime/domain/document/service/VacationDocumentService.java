@@ -48,7 +48,7 @@ public class VacationDocumentService {
 
         VacationDocumentResponse document = documentClient.getVacationById(id);
         UserResponse user = userClient.getById(userUniqueId);
-        TeamResponse team = user.group();
+        TeamResponse team = user.groups().getFirst();
 
         List<ApprovalLineResponse> approvalLine =
             approvalLineClient.getLines(

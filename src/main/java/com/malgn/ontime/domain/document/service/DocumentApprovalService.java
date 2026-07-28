@@ -62,7 +62,7 @@ public class DocumentApprovalService {
         List<ApprovalLineResponse> approvalLine =
             approvalLineClient.getLines(
                 SearchApprovalLineRequest.builder()
-                    .teamId(toLong(user.group().id()))
+                    .teamId(toLong(user.groups().getFirst().id()))
                     .documentType(document.getType())
                     .build());
 

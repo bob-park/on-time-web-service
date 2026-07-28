@@ -1,6 +1,7 @@
 package com.malgn.ontime.domain.user.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import lombok.Builder;
 
@@ -17,7 +18,7 @@ public record UserResponse(String id,
                            String cellPhone,
                            RoleResponse role,
                            PositionResponse position,
-                           TeamResponse group,
+                           List<TeamResponse> groups,
                            UserLeaveEntryResponse leaveEntry,
                            LocalDateTime createdDate,
                            String createdBy,
